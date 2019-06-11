@@ -16,10 +16,16 @@ public class CustomListener extends Listener {
 
     private final ObjectProperty<Point2D> point = new SimpleObjectProperty<>();
     public ObservableValue<Point2D> pointProperty() {return point;}
+    public VolumeController volumeController;
+
+    public CustomListener(VolumeController volumeController){
+        this.volumeController = volumeController;
+    }
 
     public void onInit(com.leapmotion.leap.Controller controller) {
         System.out.println("Initialized");
     }
+
 
     public void onConnect(com.leapmotion.leap.Controller controller) {
         System.out.println("Connected");
@@ -28,6 +34,8 @@ public class CustomListener extends Listener {
         controller.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
         controller.enableGesture(Gesture.Type.TYPE_KEY_TAP);
     }
+
+
 
     public void onDisconnect(com.leapmotion.leap.Controller controller) {
         //Note: not dispatched when running in a debugger.
@@ -41,14 +49,14 @@ public class CustomListener extends Listener {
         HandList hands = frame.hands();
 
 
-
-
         //Palm Velocity auslesen
         if (hands.count() == 1) {
             for (Hand hand : hands) {
 
                 if (hand.palmVelocity().getX() > 20) {
+                System.out.println(hand.palmPosition());
 
+                volumeController.getVolume().setValue(hand.palmPosition().getX());
                 }
 
             }

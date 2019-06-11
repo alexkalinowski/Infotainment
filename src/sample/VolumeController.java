@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -10,12 +11,17 @@ import com.leapmotion.leap.*;
 
 
 
-public class Controller {
+public class VolumeController {
     @FXML
     private TextArea outputTextArea;
 
+
     public Slider getVolume() {
         return volume;
+    }
+
+    public void setVolume(double value) {
+        this.volume.setValue(value);
     }
 
     @FXML
@@ -27,14 +33,11 @@ public class Controller {
 
 
         // Listen for Slider value changes
-        volume.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable,
-                                Number oldValue, Number newValue) {
+        volume.valueProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
+            setVolume(newValue.doubleValue());
+            outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
 
-                outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
-            }
-        });
+        }));
 
     }
 

@@ -11,12 +11,12 @@ import java.io.IOException;
 
 
 public class Main extends Application {
-    CustomListener listener = new CustomListener();
+    CustomListener listener;
     com.leapmotion.leap.Controller controller = new Controller();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        listener = new CustomListener(new VolumeController());
         controller.addListener(listener);
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));

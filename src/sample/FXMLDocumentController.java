@@ -49,7 +49,7 @@ public class FXMLDocumentController {
     public void refresh() {
         System.out.println(controller.frame().hands().leftmost().palmPosition().getX());
         if (controller.frame().hands().leftmost().palmVelocity().getX() >= 10.0) {
-            volumeSlider.setValue(30.0);
+            volumeSlider.setValue(60.0);
         }
 
 

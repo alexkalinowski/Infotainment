@@ -9,10 +9,16 @@ import javafx.fxml.FXML;
 import javafx.stage.Window;
 import javafx.scene.control.*;
 import com.leapmotion.leap.*;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 
 
-public class VolumeController {
+public class FXMLDocumentController {
 
     private Controller controller;
 
@@ -21,16 +27,8 @@ public class VolumeController {
     private TextArea outputTextArea;
 
 
-    public Slider getVolume() {
-        return volume;
-    }
-
-    public void setVolume(double value) {
-        this.volume.setValue(value);
-    }
-
     @FXML
-    private Slider volume;
+    private Slider volumeSlider;
 
 
     @FXML
@@ -48,21 +46,12 @@ public class VolumeController {
     }
 
 
-public void refresh() {
-System.out.println(controller.frame().hands().leftmost().palmPosition().getX());
-
-}
-
-public void changeVolume(){
-    System.out.println("Volume Changed" + " to " + volume.getValue());
+    public void refresh() {
+        System.out.println(controller.frame().hands().leftmost().palmPosition().getX());
+        if (controller.frame().hands().leftmost().palmVelocity().getX() >= 10.0) {
+            volumeSlider.setValue(30.0);
+        }
 
 
-}
-
-public void increaseVolume(){
-
-}
-
-
-
+    }
 }

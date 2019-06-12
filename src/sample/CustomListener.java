@@ -1,25 +1,13 @@
 package sample;
 
-import java.io.IOException;
-import java.lang.Math;
 import com.leapmotion.leap.*;
 import com.leapmotion.leap.Controller;
-import com.leapmotion.leap.Gesture.State;
-import com.sun.javafx.geom.Point2D;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx. beans.*;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Slider;
 
 public class CustomListener extends Listener {
 
-    private final ObjectProperty<Point2D> point = new SimpleObjectProperty<>();
-    public ObservableValue<Point2D> pointProperty() {return point;}
-    public VolumeController volumeController;
 
-    public CustomListener(VolumeController volumeController){
-        this.volumeController = volumeController;
+
+    public CustomListener(FXMLDocumentController FXMLDocumentController){
     }
 
     public void onInit(com.leapmotion.leap.Controller controller) {

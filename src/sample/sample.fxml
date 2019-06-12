@@ -9,7 +9,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<GridPane alignment="center" hgap="10" prefHeight="303.0" prefWidth="288.0" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.VolumeController" >
+<GridPane alignment="center" hgap="10" prefHeight="303.0" prefWidth="288.0" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.FXMLDocumentController" >
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>

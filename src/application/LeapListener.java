@@ -1,13 +1,13 @@
-package sample;
+package application;
 
 import com.leapmotion.leap.*;
 import com.leapmotion.leap.Controller;
 
-public class CustomListener extends Listener {
+public class LeapListener extends Listener {
 
 
 
-    public CustomListener(FXMLDocumentController FXMLDocumentController){
+    public LeapListener(FXMLDocumentController FXMLDocumentController){
     }
 
     public void onInit(com.leapmotion.leap.Controller controller) {

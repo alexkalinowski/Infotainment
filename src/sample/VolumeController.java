@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,6 +13,10 @@ import com.leapmotion.leap.*;
 
 
 public class VolumeController {
+
+    private Controller controller;
+
+
     @FXML
     private TextArea outputTextArea;
 
@@ -30,17 +35,23 @@ public class VolumeController {
 
     @FXML
     private void initialize() {
+        controller = new Controller();
 
-
-        // Listen for Slider value changes
-        volume.valueProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
-            setVolume(newValue.doubleValue());
-            outputTextArea.appendText("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
-
-        }));
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                refresh();
+            }
+        };
+        timer.start();
 
     }
 
+
+public void refresh() {
+System.out.println(controller.frame().hands().leftmost().palmPosition().getX());
+
+}
 
 public void changeVolume(){
     System.out.println("Volume Changed" + " to " + volume.getValue());

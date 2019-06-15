@@ -37,13 +37,18 @@ public class FXMLDocumentController {
 
     }
 
-
+    // Set volume via gesture in y-direction
     public void setVolume() {
 
         if (controller.frame().fingers().get(1).isExtended() == true) {
             volumeSlider.setValue(controller.frame().fingers().get(1).tipPosition().getX());
         }
     }
+
+    //
+
+
+
 
 
 }

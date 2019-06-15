@@ -2,6 +2,7 @@
   <library name="LeapJava">
     <CLASSES>
       <root url="jar:///Applications/NetBeans/lib/lib/LeapJava.jar!/" />
+      <root url="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/JMusicLibrary.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

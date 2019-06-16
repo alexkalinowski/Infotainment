@@ -32,30 +32,32 @@ public class FXMLDocumentController {
     }
 
     public void setOn() {
+        this.volumeSlider.setValue(0);
+        this.volumeSlider.setDisable(false);
+        this.playBtn.setDisable(false);
+        this.prevSongBtn.setDisable(false);
+        this.nextSongBtn.setDisable(false);
+        this.onOffLabel.setText("ON");
         this.infotainmentStatus = true;
-        volumeSlider.setValue(0);
-        volumeSlider.setDisable(false);
-        playBtn.setDisable(false);
-        prevSongBtn.setDisable(false);
-        nextSongBtn.setDisable(false);
-        onOffLabel.setText("ON");
+
     }
 
 
     public void setOff() {
+        this.volumeSlider.setValue(0);
+        this.volumeSlider.setDisable(true);
+        this.playBtn.setDisable(true);
+        this.nextSongBtn.setDisable(true);
+        this.prevSongBtn.setDisable(true);
+        this.onOffLabel.setText("OFF");
         this.infotainmentStatus = false;
-        volumeSlider.setValue(0);
-        volumeSlider.setDisable(true);
-        playBtn.setDisable(true);
-        nextSongBtn.setDisable(true);
-        prevSongBtn.setDisable(true);
-        onOffLabel.setText("OFF");
     }
 
 
     @FXML
     private void initialize() {
         controller = new Controller();
+        setOn();
 
 
         AnimationTimer timer = new AnimationTimer() {
@@ -68,23 +70,17 @@ public class FXMLDocumentController {
 
     }
 
-
+    //Method to observe frames
     public void refresh() {
         System.out.println(controller.frame().hands().leftmost().palmNormal().pitch());
+        System.out.println(isInfotainmentStatus());
         setVolume();
+        powerOn();
+        powerOff();
+}
 
-            powerOn();
-
-
-            powerOff();
-
-
-
-    }
-
-    // Set volume via gesture in y-direction with index finger
+    //Set volume via gesture in y-direction with index finger
     public void setVolume() {
-
         if (controller.frame().fingers().get(1).isExtended() == true) {
             volumeSlider.setValue(controller.frame().fingers().get(1).tipPosition().getX());
         }
@@ -92,27 +88,32 @@ public class FXMLDocumentController {
     }
 
 
-    // Turn on infotainment system via hand turn
+    //Turn on infotainment pitch up
     public void powerOn() {
-        if(!isInfotainmentStatus()){
-
-
             if (controller.frame().hands().leftmost().palmNormal().pitch() >= -0.05) {
                 setOn();
             }
-        }
 
     }
 
-    // Turn off infotainment system via hand turn in the opposite direction
+    //Turn off infotainment system via pitch down
     public void powerOff() {
         if (isInfotainmentStatus()) {
-
             if (controller.frame().hands().leftmost().palmNormal().pitch() < -2.0) {
                 setOff();
             }
         }
+    }
 
+    //Play/Pause by tip
+    public void playPause() {
+        if (!playBtn.isDisabled()) {
+            if (controller.frame().hands().leftmost().palmVelocity().getZ() > 20) {
+                if (controller.frame().hands().leftmost().finger(1).isExtended()) {
+                    playBtn.setDisable(true);
+                }
+            }
+        }
     }
 
 

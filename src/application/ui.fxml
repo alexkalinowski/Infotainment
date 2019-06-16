@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.event.ActionEvent.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 
-<GridPane alignment="center" hgap="10" prefHeight="303.0" prefWidth="288.0" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLDocumentController" >
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLDocumentController">
    <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0">
-         <right>
-            <Slider fx:id="volumeSlider" max="100" min="0" orientation="HORIZONTAL" BorderPane.alignment="CENTER" />
-         </right>
-         <bottom>
-            <TextArea fx:id="outputTextArea" prefHeight="99.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </bottom>
-      </BorderPane>
+      <GridPane layoutX="29.0" layoutY="30.0" prefHeight="341.0" prefWidth="543.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="97.0" />
+          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="83.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="75.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="103.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="103.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="109.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Slider fx:id="volumeSlider" orientation="VERTICAL" prefHeight="125.0" prefWidth="111.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <ToggleButton fx:id="playBtn" mnemonicParsing="false" prefHeight="48.0" prefWidth="112.0" text="Play" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="prevSongBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Previous" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="nextSongBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Next" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Label fx:id="onOffLabel" alignment="CENTER" prefHeight="17.0" prefWidth="105.0" text="ON" textAlignment="CENTER" textOverrun="CLIP">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
    </children>
-</GridPane>
+</Pane>

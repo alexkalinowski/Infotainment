@@ -34,7 +34,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Label fx:id="onOffLabel" alignment="CENTER" prefHeight="17.0" prefWidth="105.0" text="ON" textAlignment="CENTER" textOverrun="CLIP">
+            <Label fx:id="onOffLabel" alignment="CENTER" prefHeight="17.0" prefWidth="105.0" text="KÄSE" textAlignment="CENTER" textOverrun="CLIP">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

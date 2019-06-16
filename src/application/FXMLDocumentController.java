@@ -79,8 +79,8 @@ public class FXMLDocumentController {
 
     //Set volume via gesture in y-direction with index finger
     public void setVolume() {
-        if (controller.frame().fingers().get(1).isExtended() == true) {
-            volumeSlider.setValue(controller.frame().fingers().get(1).tipPosition().getX());
+        if (controller.frame().fingers().get(1).isExtended() == false) {
+            volumeSlider.setValue(controller.frame().fingers().get(1).tipPosition().getY());
         }
 
     }
@@ -89,23 +89,22 @@ public class FXMLDocumentController {
     //Turn on infotainment pitch up
     public void powerOn() {
 
-        if (!isInfotainmentStatus()) {
-            if (controller.frame().hands().leftmost().palmNormal().pitch() >= -0.05) {
+
+            if (controller.frame().hands().leftmost().palmNormal().pitch() >= -0.06 && controller.frame().hands().leftmost().palmNormal().pitch() <= -0.04) {
                 setOn();
             }
-        } else {
-        }
+
 
 
     }
 
     //Turn off infotainment system via pitch down
     public void powerOff() {
-        if (isInfotainmentStatus()) {
+
             if (controller.frame().hands().leftmost().palmNormal().pitch() < -2.0) {
                 setOff();
             }
-        }
+
     }
 
 

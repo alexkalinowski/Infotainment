@@ -57,7 +57,6 @@ public class FXMLDocumentController {
     @FXML
     private void initialize() {
         controller = new Controller();
-        setOn();
 
 
         AnimationTimer timer = new AnimationTimer() {
@@ -73,11 +72,10 @@ public class FXMLDocumentController {
     //Method to observe frames
     public void refresh() {
         System.out.println(controller.frame().hands().leftmost().palmNormal().pitch());
-        System.out.println(isInfotainmentStatus());
         setVolume();
         powerOn();
         powerOff();
-}
+    }
 
     //Set volume via gesture in y-direction with index finger
     public void setVolume() {
@@ -90,9 +88,14 @@ public class FXMLDocumentController {
 
     //Turn on infotainment pitch up
     public void powerOn() {
+
+        if (!isInfotainmentStatus()) {
             if (controller.frame().hands().leftmost().palmNormal().pitch() >= -0.05) {
                 setOn();
             }
+        } else {
+        }
+
 
     }
 
@@ -104,6 +107,7 @@ public class FXMLDocumentController {
             }
         }
     }
+
 
     //Play/Pause by tip
     public void playPause() {

@@ -10,7 +10,6 @@ public class FXMLDocumentController {
 
     private Controller controller;
 
-
     @FXML
     private TextArea outputTextArea;
     @FXML
@@ -65,6 +64,9 @@ public class FXMLDocumentController {
 
 
 
+
+
+
     @FXML
     private void initialize() {
         controller = new Controller();
@@ -83,10 +85,13 @@ public class FXMLDocumentController {
     //Method to observe frames
     public void refresh() {
 
+
+        pause();
         setVolume();
         powerOn();
         powerOff();
         play();
+        pause();
     }
 
     //Set volume via gesture in y-direction with index finger
@@ -94,35 +99,65 @@ public class FXMLDocumentController {
         if (controller.frame().fingers().get(1).isExtended() == false) {
             volumeSlider.setValue(controller.frame().fingers().get(1).tipPosition().getY());
         }
-
     }
 
 
     //Turn on infotainment pitch up
     public void powerOn() {
 
-            if (controller.frame().hands().leftmost().palmNormal().pitch() >= -0.06 && controller.frame().hands().leftmost().palmNormal().pitch() <= -0.04) {
-                setOn();
-            }
+        if (controller.frame().hands().leftmost().palmNormal().pitch() >= -0.06 && controller.frame().hands().leftmost().palmNormal().pitch() <= -0.04) {
+            setOn();
+        }
     }
 
     //Turn off infotainment system via pitch down
     public void powerOff() {
-            if (controller.frame().hands().leftmost().palmNormal().pitch() < -2.55) {
-                setOff();
-            }
+        if (controller.frame().hands().leftmost().palmNormal().pitch() < -2.55) {
+            setOff();
+        }
     }
 
 
     //Play/Pause by tip
     public void play() {
         if (controller.frame().hands().leftmost().pointables().frontmost().tipPosition().getZ() <= -150) {
-            if (controller.frame().hands().leftmost().palmVelocity().getZ() < -50){
+            if (controller.frame().hands().leftmost().palmVelocity().getZ() < -50) {
                 setPlay();
             }
         }
     }
 
+    public void pause() {
+        int extendedFingers = 0;
+        for (Finger finger : controller.frame().hands().leftmost().fingers()) {
+            if (finger.isExtended()) extendedFingers++;
+            System.out.println(extendedFingers);
+        }
+
+        if (extendedFingers==0 && controller.frame().hands().leftmost().palmPosition().getZ() <= -150){
+            if (controller.frame().hands().leftmost().palmVelocity().getZ()< -50) {
+                setPause();
+            }
+        }
+    }
+
+    public void nextSong() {
+        Frame frame = controller.frame();
+        HandList hands = controller.frame().hands();
+
+        if (controller.frame().hands().leftmost().isValid()){
+
+            if (controller.frame().hands().leftmost().fingers().count() == 2){
+                int fingerA_x;
+                int fingerB_x;
+                for (Finger finger : hand.
+                     ) {
+                    
+                }
+            }
+
+        }
+    }
 
 
 }

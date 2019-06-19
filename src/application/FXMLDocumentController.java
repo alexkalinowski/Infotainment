@@ -52,6 +52,14 @@ public class FXMLDocumentController {
         this.infotainmentStatus = false;
     }
 
+    public void loadNextSong() {
+        System.out.println("next Song");
+    }
+
+    public void loadPrevSong() {
+        System.out.println("previous Song");
+    }
+
     public void setPlay() {
         this.playBtn.setSelected(true);
         this.playBtn.setText("Pause");
@@ -84,20 +92,27 @@ public class FXMLDocumentController {
 
     //Method to observe frames
     public void refresh() {
-
-
         pause();
         setVolume();
         powerOn();
         powerOff();
         play();
         pause();
+        nextSong();
+        prevSong();
     }
 
     //Set volume via gesture in y-direction with index finger
     public void setVolume() {
-        if (controller.frame().fingers().get(1).isExtended() == false) {
-            volumeSlider.setValue(controller.frame().fingers().get(1).tipPosition().getY());
+        int extendedFingers = 0;
+        for (Finger finger : controller.frame().hands().leftmost().fingers()) {
+            if (finger.isExtended()) extendedFingers++;
+        }
+
+        if (extendedFingers==2){
+
+                volumeSlider.setValue(controller.frame().fingers().get(1).tipPosition().getY());
+
         }
     }
 
@@ -131,7 +146,6 @@ public class FXMLDocumentController {
         int extendedFingers = 0;
         for (Finger finger : controller.frame().hands().leftmost().fingers()) {
             if (finger.isExtended()) extendedFingers++;
-            System.out.println(extendedFingers);
         }
 
         if (extendedFingers==0 && controller.frame().hands().leftmost().palmPosition().getZ() <= -150){
@@ -141,23 +155,23 @@ public class FXMLDocumentController {
         }
     }
 
-    public void nextSong() {
-        Frame frame = controller.frame();
-        HandList hands = controller.frame().hands();
 
-        if (controller.frame().hands().leftmost().isValid()){
-
-            if (controller.frame().hands().leftmost().fingers().count() == 2){
-                int fingerA_x;
-                int fingerB_x;
-                for (Finger finger : hand.
-                     ) {
-                    
-                }
+    public void prevSong() {
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80){
+            if (controller.frame().hands().leftmost().palmPosition().getX() < -160.0){
+                loadPrevSong();
             }
-
         }
     }
+
+    public void nextSong() {
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80){
+            if (controller.frame().hands().leftmost().palmPosition().getX() > 160.0){
+                loadNextSong();
+            }
+        }
+    }
+
 
 
 }

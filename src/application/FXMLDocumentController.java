@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.leapmotion.leap.*;
 
+import java.util.Timer;
+
 
 public class FXMLDocumentController {
 
@@ -70,6 +72,25 @@ public class FXMLDocumentController {
         this.playBtn.setText("Play");
     }
 
+    public boolean swipeLeftDetected(){
+        boolean swipe = false;
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80){
+            if (controller.frame().hands().leftmost().palmPosition().getX() < -160.0){
+                swipe = true;
+            }
+        }
+        return swipe;
+    }
+
+    public boolean swipeRightDetected(){
+        boolean swipe = false;
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80){
+            if (controller.frame().hands().leftmost().palmPosition().getX() > 160.0){
+                swipe = true;
+            }
+        }
+        return swipe;
+    }
 
 
 
@@ -159,15 +180,23 @@ public class FXMLDocumentController {
     public void prevSong() {
         if (controller.frame().hands().leftmost().palmVelocity().getX() > 80){
             if (controller.frame().hands().leftmost().palmPosition().getX() < -160.0){
-                loadPrevSong();
+               if(swipeLeftDetected()){
+                   loadPrevSong();
+               }
             }
         }
     }
 
     public void nextSong() {
+
+        Frame frame = controller.frame();
+        HandList hands = frame.hands();
+
         if (controller.frame().hands().leftmost().palmVelocity().getX() > 80){
-            if (controller.frame().hands().leftmost().palmPosition().getX() > 160.0){
-                loadNextSong();
+            if (controller.frame().hands().leftmost().palmPosition().getX() > 160.0 && controller.frame().hands().leftmost().palmPosition().getX() < 165.0){
+                if (swipeRightDetected()){
+                    loadNextSong();
+                }
             }
         }
     }

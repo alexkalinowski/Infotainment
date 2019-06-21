@@ -45,7 +45,7 @@
                     <effect>
                         <Glow />
                     </effect></Button>
-                <Button fx:id="nextSongBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #0090ff; -fx-background-radius: 20;" text="Next" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                <Button fx:id="nextSongBtn" onAction="#loadNextSong" alignment="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" style="-fx-background-color: #0090ff; -fx-background-radius: 20;" text="Next" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets />
                     </GridPane.margin>

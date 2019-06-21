@@ -28,6 +28,8 @@ public class FXMLDocumentController {
         }
     }
 
+
+
     @FXML
     private TextArea outputTextArea;
     @FXML
@@ -76,7 +78,7 @@ public class FXMLDocumentController {
 
     public void loadNextSong() {
         System.out.println("next Song");
-        coverArt.setImage(art.get(2));
+        coverArt.setImage(art.listIterator().next());
 
     }
 

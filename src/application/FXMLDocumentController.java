@@ -4,7 +4,11 @@ import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.leapmotion.leap.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Handler;
@@ -14,6 +18,15 @@ import java.util.logging.LogRecord;
 public class FXMLDocumentController {
 
     private Controller controller;
+
+    List<Image> art = new ArrayList<>();
+
+    public void loadImages() {
+        for (int i=0; i < 3; i++) {
+            art.add(new Image(getClass().getResource( "images/picture_1.jpg").toExternalForm()));
+            art.add(new Image(getClass().getResource( "images/picture_2.jpg").toExternalForm()));
+        }
+    }
 
     @FXML
     private TextArea outputTextArea;
@@ -27,6 +40,8 @@ public class FXMLDocumentController {
     private Button nextSongBtn;
     @FXML
     private Label onOffLabel;
+    @FXML
+    private ImageView coverArt;
 
     private boolean infotainmentStatus = true;
 
@@ -61,6 +76,8 @@ public class FXMLDocumentController {
 
     public void loadNextSong() {
         System.out.println("next Song");
+        coverArt.setImage(art.get(2));
+
     }
 
     public void loadPrevSong() {
@@ -81,6 +98,8 @@ public class FXMLDocumentController {
     @FXML
     private void initialize() {
         controller = new Controller();
+        loadImages();
+        coverArt.setImage(art.get(1));
 
 
         AnimationTimer timer = new AnimationTimer() {
@@ -114,12 +133,10 @@ public class FXMLDocumentController {
             if (finger.isExtended()) extendedFingers++;
         }
         if (infotainmentStatus) {
-
             if (extendedFingers == 2) {
                 float fingerPos = 0;
                 fingerPos = controller.frame().fingers().get(1).tipPosition().getY();
                 volumeSlider.setValue(fingerPos);
-
             }
             if (extendedFingers == 2) {
                 volumeSlider.setValue(controller.frame().fingers().get(1).tipPosition().getY());

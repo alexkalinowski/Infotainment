@@ -4,29 +4,16 @@ import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.leapmotion.leap.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 
 public class FXMLDocumentController {
 
     private Controller controller;
+    public Music music = new Music();
 
-    List<Image> art = new ArrayList<>();
 
-    public void loadImages() {
-        for (int i=0; i < 3; i++) {
-            art.add(new Image(getClass().getResource( "images/picture_1.jpg").toExternalForm()));
-            art.add(new Image(getClass().getResource( "images/picture_2.jpg").toExternalForm()));
-        }
-    }
+
 
 
 
@@ -47,11 +34,16 @@ public class FXMLDocumentController {
 
     private boolean infotainmentStatus = true;
 
-    private Frame frame5;
+    public int coverIterator = 0;
+
+
+
 
     public boolean isInfotainmentStatus() {
         return this.infotainmentStatus;
     }
+
+
 
 
     public void setOn() {
@@ -78,12 +70,18 @@ public class FXMLDocumentController {
 
     public void loadNextSong() {
         System.out.println("next Song");
-        coverArt.setImage(art.listIterator().next());
-
+        if (coverIterator > 15 || coverIterator < 0){
+            coverIterator = 1;
+        }
+            coverArt.setImage(music.cover.get(coverIterator++));
     }
 
     public void loadPrevSong() {
+        if (coverIterator > 15 || coverIterator < 0){
+            coverIterator = 1;
+        }
         System.out.println("previous Song");
+        coverArt.setImage(music.cover.get(coverIterator--));
     }
 
     public void setPlay() {
@@ -100,8 +98,7 @@ public class FXMLDocumentController {
     @FXML
     private void initialize() {
         controller = new Controller();
-        loadImages();
-        coverArt.setImage(art.get(1));
+        music.loadImages();
 
 
         AnimationTimer timer = new AnimationTimer() {
@@ -116,7 +113,6 @@ public class FXMLDocumentController {
 
     //Method to observe frames
     public void refresh() {
-        System.out.println(controller.frame().hands().leftmost().palmNormal().pitch());
         pause();
         setVolume();
         powerOn();
@@ -147,65 +143,64 @@ public class FXMLDocumentController {
     }
 
 
-        //Turn on infotainment pitch up
-        public void powerOn () {
-            if (controller.frame().hands().leftmost().palmNormal().pitch() >= -0.06 && controller.frame().hands().leftmost().palmNormal().pitch() <= -0.04) {
-                setOn();
-                System.out.println("on");
-            }
+    //Turn on infotainment pitch up
+    public void powerOn() {
+        if (controller.frame().hands().leftmost().palmNormal().pitch() >= -0.06 && controller.frame().hands().leftmost().palmNormal().pitch() <= -0.04) {
+            setOn();
+            System.out.println("on");
         }
-
-        //Turn off infotainment system via pitch down
-        public void powerOff () {
-            if (controller.frame().hands().leftmost().palmNormal().pitch() < -2.8) {
-                setOff();
-                System.out.println("off");
-
-            }
-        }
-
-
-        //Play/Pause by tip
-        public void play () {
-            if (controller.frame().hands().leftmost().pointables().frontmost().tipPosition().getZ() <= -150) {
-                if (controller.frame().hands().leftmost().palmVelocity().getZ() < -50) {
-                    setPlay();
-                }
-            }
-        }
-
-        public void pause () {
-            int extendedFingers = 0;
-            for (Finger finger : controller.frame().hands().leftmost().fingers()) {
-                if (finger.isExtended()) extendedFingers++;
-            }
-
-            if (extendedFingers == 0 && controller.frame().hands().leftmost().palmPosition().getZ() <= -150) {
-                if (controller.frame().hands().leftmost().palmVelocity().getZ() < -50) {
-                    setPause();
-                }
-            }
-        }
-
-
-        public void prevSong () {
-            if (controller.frame().hands().leftmost().palmVelocity().getX() > 50) {
-                if (controller.frame().hands().leftmost().palmPosition().getX() < -160.0) {
-                    loadPrevSong();
-
-                }
-            }
-        }
-
-        public void nextSong () {
-
-            if (controller.frame().hands().leftmost().palmVelocity().getX() > 50) {
-                if (controller.frame().hands().leftmost().palmPosition().getX() > 160.0) {
-                    loadNextSong();
-                }
-            }
-        }
-
-
     }
+
+    //Turn off infotainment system via pitch down
+    public void powerOff() {
+        if (controller.frame().hands().leftmost().palmNormal().pitch() < -2.8) {
+            setOff();
+            System.out.println("off");
+
+        }
+    }
+
+
+    //Play/Pause by tip
+    public void play() {
+        if (controller.frame().hands().leftmost().pointables().frontmost().tipPosition().getZ() <= -150) {
+            if (controller.frame().hands().leftmost().palmVelocity().getZ() < -50) {
+                setPlay();
+            }
+        }
+    }
+
+    public void pause() {
+        int extendedFingers = 0;
+        for (Finger finger : controller.frame().hands().leftmost().fingers()) {
+            if (finger.isExtended()) extendedFingers++;
+        }
+
+        if (extendedFingers == 0 && controller.frame().hands().leftmost().palmPosition().getZ() <= -150) {
+            if (controller.frame().hands().leftmost().palmVelocity().getZ() < -50) {
+                setPause();
+            }
+        }
+    }
+
+
+    public void prevSong() {
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 50) {
+            if (controller.frame().hands().leftmost().palmPosition().getX() < -160.0) {
+                loadPrevSong();
+
+            }
+        }
+    }
+
+    public void nextSong() {
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 50) {
+            if (controller.frame().hands().leftmost().palmPosition().getX() > 160.0) {
+                loadNextSong();
+            }
+        }
+    }
+
+
+}
 

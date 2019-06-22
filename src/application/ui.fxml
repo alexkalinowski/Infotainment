@@ -49,7 +49,7 @@
                     <effect>
                         <Glow level="0.22" />
                     </effect></ToggleButton>
-                <Button fx:id="prevSongBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" stylesheets="@CSS/Style.css" text="Previous" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Button fx:id="prevSongBtn" onAction="#loadPrevSong" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" stylesheets="@CSS/Style.css" text="Previous" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <effect>
                         <Glow />
                     </effect></Button>
@@ -74,7 +74,7 @@
                 </Label>
             <ImageView fx:id="coverArt" fitHeight="200.0" fitWidth="430.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../../../../Desktop/Infotainment-Julian/Infotainment-master/src/application/images/Cover_8.png" />
+                  <Image url="@images/Cover_8.png" />
                </image></ImageView>
 
             </children>

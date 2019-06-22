@@ -1,0 +1,31 @@
+.button {
+    -fx-background-color: #0090ff;
+    -fx-background-radius: 20;
+
+
+}
+
+.button:pressed {
+    -fx-background-color: #73C2FF;
+}
+
+
+.button:disabled{
+    -fx-background-color: #DCDCDC;
+}
+
+
+.label {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-background-size: 25%;
+}
+
+.label:pressed {
+    -fx-background-color: #D1D1D1;
+}
+
+.toggle-button:selected{
+    -fx-background-color: #0575af;
+}
+

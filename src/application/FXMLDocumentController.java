@@ -116,7 +116,7 @@ public class FXMLDocumentController {
 
     //Method to observe frames
     public void refresh() {
-        System.out.println(controller.frame().fingers().get(1).tipPosition().getY());
+        System.out.println(controller.frame().hands().leftmost().palmNormal().pitch());
         pause();
         setVolume();
         powerOn();
@@ -151,13 +151,16 @@ public class FXMLDocumentController {
         public void powerOn () {
             if (controller.frame().hands().leftmost().palmNormal().pitch() >= -0.06 && controller.frame().hands().leftmost().palmNormal().pitch() <= -0.04) {
                 setOn();
+                System.out.println("on");
             }
         }
 
         //Turn off infotainment system via pitch down
         public void powerOff () {
-            if (controller.frame().hands().leftmost().palmNormal().pitch() < -3.55) {
+            if (controller.frame().hands().leftmost().palmNormal().pitch() < -2.8) {
                 setOff();
+                System.out.println("off");
+
             }
         }
 
@@ -197,7 +200,7 @@ public class FXMLDocumentController {
         public void nextSong () {
 
             if (controller.frame().hands().leftmost().palmVelocity().getX() > 50) {
-                if (controller.frame().hands().leftmost().palmPosition().getX() < 160.0) {
+                if (controller.frame().hands().leftmost().palmPosition().getX() > 160.0) {
                     loadNextSong();
                 }
             }

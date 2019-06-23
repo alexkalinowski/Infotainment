@@ -74,7 +74,7 @@
                 </Label>
             <ImageView fx:id="coverArt" fitHeight="200.0" fitWidth="430.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <image>
-                  <Image url="@images/Cover_8.png" />
+                  <Image url="@images/Cover_1.png" />
                </image></ImageView>
 
             </children>

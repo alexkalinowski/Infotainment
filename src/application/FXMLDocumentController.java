@@ -61,19 +61,26 @@ public class FXMLDocumentController {
 
 
     public void loadNextSong() {
-        System.out.println("next Song");
-        if (coverIterator > 15 || coverIterator < 0) {
-            coverIterator = 1;
+        if (coverIterator == 14) {
+            coverIterator = 0;
+        } else {
+            coverIterator++;
         }
-        coverArt.setImage(music.cover.get(coverIterator++));
+
+        System.out.println("next Song");
+        coverArt.setImage(music.cover.get(coverIterator));
+
     }
 
     public void loadPrevSong() {
-        if (coverIterator > 15 || coverIterator < 0) {
-            coverIterator = 1;
+        if (coverIterator == 14 || coverIterator == 0) {
+            coverIterator = 0;
+        } else {
+            coverIterator--;
         }
+
         System.out.println("previous Song");
-        coverArt.setImage(music.cover.get(coverIterator--));
+        coverArt.setImage(music.cover.get(coverIterator));
     }
 
     public void setPlay() {
@@ -145,8 +152,6 @@ public class FXMLDocumentController {
                 System.out.println("system on");
             }
         }
-
-
     }
 
     //Turn off infotainment system via pitch down
@@ -161,12 +166,8 @@ public class FXMLDocumentController {
                 setOff();
                 System.out.println("system off");
             }
-
         }
-
-
     }
-
 
     //Play/Pause by tip
     public void play() {
@@ -177,6 +178,7 @@ public class FXMLDocumentController {
         }
     }
 
+    //Punch the screen to pause
     public void pause() {
         int extendedFingers = 0;
         for (Finger finger : controller.frame().hands().leftmost().fingers()) {

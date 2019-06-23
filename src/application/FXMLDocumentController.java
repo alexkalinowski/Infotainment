@@ -139,13 +139,12 @@ public class FXMLDocumentController {
     }
 
 
-    //Turn on infotainment pitch up
+    //Turn on infotainment system 2 hand gesture up or down with fingers extended
     public void powerOn() {
         int extendedFingers = 0;
         for (Finger finger : controller.frame().fingers()) {
             if (finger.isExtended()) extendedFingers++;
         }
-
         if (controller.frame().hands().count() == 2 && extendedFingers == 10) {
             if (controller.frame().hands().rightmost().palmVelocity().getY() > 100) {
                 setOn();
@@ -154,7 +153,7 @@ public class FXMLDocumentController {
         }
     }
 
-    //Turn off infotainment system via pitch down
+    //Turn off infotainment system 2 hand gesture up or down with fists
     public void powerOff() {
         int extendedFingers = 0;
         for (Finger finger : controller.frame().fingers()) {
@@ -194,16 +193,15 @@ public class FXMLDocumentController {
 
 
     public void prevSong() {
-        if (controller.frame().hands().leftmost().palmVelocity().getX() > 50) {
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80) {
             if (controller.frame().hands().leftmost().palmPosition().getX() < -160.0) {
                 loadPrevSong();
-
             }
         }
     }
 
     public void nextSong() {
-        if (controller.frame().hands().leftmost().palmVelocity().getX() > 50) {
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80) {
             if (controller.frame().hands().leftmost().palmPosition().getX() > 160.0) {
                 loadNextSong();
             }

@@ -32,7 +32,6 @@ public class FXMLDocumentController {
 
     public int coverIterator = 0;
 
-
     public boolean isInfotainmentStatus() {
         return this.infotainmentStatus;
     }
@@ -109,6 +108,7 @@ public class FXMLDocumentController {
 
     //Method to observe frames
     public void refresh() {
+        System.out.println(controller.frame().hands().leftmost().palmPosition().getX());
         pause();
         setVolume();
         powerOn();

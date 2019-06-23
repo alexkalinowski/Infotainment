@@ -13,10 +13,6 @@ public class FXMLDocumentController {
     public Music music = new Music();
 
 
-
-
-
-
     @FXML
     private TextArea outputTextArea;
     @FXML
@@ -37,13 +33,9 @@ public class FXMLDocumentController {
     public int coverIterator = 0;
 
 
-
-
     public boolean isInfotainmentStatus() {
         return this.infotainmentStatus;
     }
-
-
 
 
     public void setOn() {
@@ -70,14 +62,14 @@ public class FXMLDocumentController {
 
     public void loadNextSong() {
         System.out.println("next Song");
-        if (coverIterator > 15 || coverIterator < 0){
+        if (coverIterator > 15 || coverIterator < 0) {
             coverIterator = 1;
         }
-            coverArt.setImage(music.cover.get(coverIterator++));
+        coverArt.setImage(music.cover.get(coverIterator++));
     }
 
     public void loadPrevSong() {
-        if (coverIterator > 15 || coverIterator < 0){
+        if (coverIterator > 15 || coverIterator < 0) {
             coverIterator = 1;
         }
         System.out.println("previous Song");
@@ -99,8 +91,6 @@ public class FXMLDocumentController {
     private void initialize() {
         controller = new Controller();
         music.loadImages();
-
-
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -108,7 +98,6 @@ public class FXMLDocumentController {
             }
         };
         timer.start();
-
     }
 
     //Method to observe frames
@@ -145,19 +134,37 @@ public class FXMLDocumentController {
 
     //Turn on infotainment pitch up
     public void powerOn() {
-        if (controller.frame().hands().leftmost().palmNormal().pitch() >= -0.06 && controller.frame().hands().leftmost().palmNormal().pitch() <= -0.04) {
-            setOn();
-            System.out.println("on");
+        int extendedFingers = 0;
+        for (Finger finger : controller.frame().fingers()) {
+            if (finger.isExtended()) extendedFingers++;
         }
+
+        if (controller.frame().hands().count() == 2 && extendedFingers == 10) {
+            if (controller.frame().hands().rightmost().palmVelocity().getY() > 100) {
+                setOn();
+                System.out.println("system on");
+            }
+        }
+
+
     }
 
     //Turn off infotainment system via pitch down
     public void powerOff() {
-        if (controller.frame().hands().leftmost().palmNormal().pitch() < -2.8) {
-            setOff();
-            System.out.println("off");
+        int extendedFingers = 0;
+        for (Finger finger : controller.frame().fingers()) {
+            if (finger.isExtended()) extendedFingers++;
+        }
+
+        if (extendedFingers == 0 && controller.frame().hands().count() == 2) {
+            if (controller.frame().hands().rightmost().palmVelocity().getY() > 100) {
+                setOff();
+                System.out.println("system off");
+            }
 
         }
+
+
     }
 
 

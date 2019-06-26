@@ -65,7 +65,6 @@ public class FXMLDocumentController {
         } else {
             coverIterator++;
         }
-
         System.out.println("next Song");
         coverArt.setImage(music.cover.get(coverIterator));
 
@@ -77,7 +76,6 @@ public class FXMLDocumentController {
         } else {
             coverIterator--;
         }
-
         System.out.println("previous Song");
         coverArt.setImage(music.cover.get(coverIterator));
     }
@@ -106,7 +104,7 @@ public class FXMLDocumentController {
         timer.start();
     }
 
-    //Method to observe frames
+    //Method to observe gestures
     public void refresh() {
         System.out.println(controller.frame().hands().leftmost().palmPosition().getX());
         pause();
@@ -121,7 +119,6 @@ public class FXMLDocumentController {
 
     //Set volume via gesture in y-direction with index finger
     public void setVolume() {
-
         int extendedFingers = 0;
         for (Finger finger : controller.frame().hands().leftmost().fingers()) {
             if (finger.isExtended()) extendedFingers++;

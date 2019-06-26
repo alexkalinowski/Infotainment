@@ -109,7 +109,11 @@ public class FXMLDocumentController {
 
     //Method to observe gestures
     public void refresh() {
-        System.out.println(controller.frame().hands().leftmost().palmPosition().getX());
+
+        if (controller.frame().hands().leftmost().finger(1).isExtended() && controller.frame().hands().leftmost().finger(2).isExtended())
+        {
+            System.out.println("volumefingers detected");
+        }
         pause();
         setVolume();
         powerOn();
@@ -186,7 +190,7 @@ public class FXMLDocumentController {
         }
     }
 
-
+// TODO Auslösewerte (Velocity etc.) anpassen
     public void prevSong() {
 
         if (controller.frame().hands().leftmost().palmVelocity().getX() > 80 && controller.frame().hands().leftmost().palmPosition().getX() < -50) {

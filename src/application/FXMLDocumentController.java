@@ -14,8 +14,6 @@ public class FXMLDocumentController {
 
 
     @FXML
-    private TextArea outputTextArea;
-    @FXML
     private Slider volumeSlider;
     @FXML
     private ToggleButton playBtn;
@@ -27,8 +25,13 @@ public class FXMLDocumentController {
     private Label onOffLabel;
     @FXML
     private ImageView coverArt;
+    @FXML
 
     private boolean infotainmentStatus = true;
+
+    private boolean isSwipingRight = false;
+
+    private boolean isSwipingLeft = false;
 
     public int coverIterator = 0;
 
@@ -125,11 +128,6 @@ public class FXMLDocumentController {
         }
         if (infotainmentStatus) {
             if (extendedFingers == 2) {
-                float fingerPos = 0;
-                fingerPos = controller.frame().fingers().get(1).tipPosition().getY();
-                volumeSlider.setValue(fingerPos);
-            }
-            if (extendedFingers == 2) {
                 volumeSlider.setValue(controller.frame().fingers().get(1).tipPosition().getY());
             }
         }
@@ -190,18 +188,27 @@ public class FXMLDocumentController {
 
 
     public void prevSong() {
-        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80) {
-            if (controller.frame().hands().leftmost().palmPosition().getX() < -160.0) {
-                loadPrevSong();
-            }
+
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80 && controller.frame().hands().leftmost().palmPosition().getX() < -50) {
+            isSwipingLeft = true;
         }
+
+        if (controller.frame().hands().leftmost().palmVelocity().getX() < 40 && isSwipingLeft) {
+                isSwipingLeft = false;
+                loadPrevSong();
+        }
+
     }
 
     public void nextSong() {
-        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80) {
-            if (controller.frame().hands().leftmost().palmPosition().getX() > 160.0) {
-                loadNextSong();
-            }
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80 && controller.frame().hands().leftmost().palmPosition().getX() > 50) {
+            isSwipingRight = true;
+        }
+
+        if (controller.frame().hands().leftmost().palmVelocity().getX() < 40 && isSwipingRight) {
+            isSwipingRight = false;
+            loadNextSong();
+
         }
     }
 

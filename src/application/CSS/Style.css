@@ -1,6 +1,7 @@
 .button {
-    -fx-background-color: #0090ff;
+    -fx-background-color: #E5DDFF;
     -fx-background-radius: 20;
+    -fx-color-:black;
 
 
 }
@@ -16,9 +17,10 @@
 
 
 .label {
-    -fx-background-color: white;
+    -fx-background-color: #E5DDFF;
     -fx-background-radius: 20;
     -fx-background-size: 25%;
+
 }
 
 .label:pressed {
@@ -29,3 +31,19 @@
     -fx-background-color: #0575af;
 }
 
+.slider .track{
+
+    -fx-background-color: #363636;
+    -fx-background-insets: 2;
+
+}
+
+.slider .thumb{
+    -fx-background-color: #FF0039;
+}
+.POWER:disabled{
+    -fx-fill: grey;
+}
+.POWER:pressed{
+    -fx-fill: grey;
+}

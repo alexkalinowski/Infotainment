@@ -68,7 +68,7 @@ public class FXMLDocumentController {
         } else {
             coverIterator++;
         }
-        System.out.println("next Song");
+        //System.out.println("next Song");
         coverArt.setImage(music.cover.get(coverIterator));
 
     }
@@ -79,7 +79,7 @@ public class FXMLDocumentController {
         } else {
             coverIterator--;
         }
-        System.out.println("previous Song");
+        //System.out.println("previous Song");
         coverArt.setImage(music.cover.get(coverIterator));
     }
 
@@ -109,8 +109,7 @@ public class FXMLDocumentController {
 
     //Method to observe gestures
     public void refresh() {
-
-        if (controller.frame().hands().leftmost().finger(1).isExtended() && controller.frame().hands().leftmost().finger(2).isExtended())
+        if (controller.frame().hands().get(0).finger(1).isExtended())
         {
             System.out.println("volumefingers detected");
         }
@@ -132,7 +131,14 @@ public class FXMLDocumentController {
         }
         if (infotainmentStatus) {
             if (extendedFingers == 2) {
-                volumeSlider.setValue(controller.frame().fingers().get(1).tipPosition().getY());
+                double currentVolume = volumeSlider.getValue();
+
+                if (controller.frame().fingers().get(1).direction().getY() > 0){
+                    volumeSlider.setValue(currentVolume + controller.frame().fingers().get(1).tipPosition().getY() * 0.01);
+
+                } else if (controller.frame().fingers().get(1).direction().getY() < 0){
+                    volumeSlider.setValue(currentVolume - controller.frame().fingers().get(1).tipPosition().getY() * 0.01);
+                }
             }
         }
     }
@@ -193,7 +199,7 @@ public class FXMLDocumentController {
 // TODO Auslösewerte (Velocity etc.) anpassen
     public void prevSong() {
 
-        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80 && controller.frame().hands().leftmost().palmPosition().getX() < -50) {
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80 && controller.frame().hands().leftmost().palmPosition().getX() < -150) {
             isSwipingLeft = true;
         }
 
@@ -205,7 +211,7 @@ public class FXMLDocumentController {
     }
 
     public void nextSong() {
-        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80 && controller.frame().hands().leftmost().palmPosition().getX() > 50) {
+        if (controller.frame().hands().leftmost().palmVelocity().getX() > 80 && controller.frame().hands().leftmost().palmPosition().getX() > 150) {
             isSwipingRight = true;
         }
 

@@ -1,13 +1,20 @@
+.pane {
+    -fx-background-color: #131313;
+}
+
+
 .button {
-    -fx-background-color: #E5DDFF;
+    -fx-background-color: #FF0039;
     -fx-background-radius: 20;
-    -fx-color-:black;
+    -fx-text-fill: white;
+
 
 
 }
 
 .button:pressed {
-    -fx-background-color: #73C2FF;
+    -fx-background-color: #E5DDFF;
+    -fx-text-fill: white;
 }
 
 
@@ -17,7 +24,7 @@
 
 
 .label {
-    -fx-background-color: #E5DDFF;
+    -fx-background-color: #FF0039;
     -fx-background-radius: 20;
     -fx-background-size: 25%;
 
@@ -25,10 +32,12 @@
 
 .label:pressed {
     -fx-background-color: #D1D1D1;
+
 }
 
 .toggle-button:selected{
-    -fx-background-color: #0575af;
+    -fx-background-color: #E5DDFF;
+
 }
 
 .slider .track{

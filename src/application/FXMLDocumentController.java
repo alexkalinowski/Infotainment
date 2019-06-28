@@ -50,7 +50,6 @@ public class FXMLDocumentController {
         this.onOffLabel.setText("ON");
         this.infotainmentStatus = true;
         this.inactive.setVisible(false);
-
     }
 
 
@@ -126,27 +125,15 @@ public class FXMLDocumentController {
         //TODO die hier noch mit System.out.print testen
         //TODO Mapping anpassen und relative Lautstärkeregelung
         //TODO zum Mapping -> analog zu swipeLeft/Right implementieren mit 3 States
-        FingerList allFingers = controller.frame().fingers();
-        Finger thumb = allFingers.get(0);
-        Finger indexFinger = allFingers.get(1);
-        Finger middleFinger = allFingers.get(2);
-        Finger ringFinger = allFingers.get(3);
-        Finger pinky = allFingers.get(4);
+        Finger thumb = controller.frame().hands().leftmost().fingers().get(0);
+        Finger indexFinger = controller.frame().hands().leftmost().fingers().get(1);
+        Finger middleFinger = controller.frame().hands().leftmost().fingers().get(2);
+        Finger ringFinger = controller.frame().hands().leftmost().fingers().get(3);
+        Finger pinky = controller.frame().hands().leftmost().fingers().get(4);
 
-
-        if (controller.frame().fingers().get(1).isExtended() && controller.frame().fingers().get(2).isExtended()){
-            System.out.println("success");
-        }
-
-
-
-        int extendedFingers = 0;
-        for (Finger finger : controller.frame().hands().leftmost().fingers()) {
-            if (finger.isExtended()) extendedFingers++;
-        }
-        if (infotainmentStatus) {
-            if (extendedFingers == 2) {
-                double currentVolume = volumeSlider.getValue();
+        //only index and middle finger should be extended - change volume by tilting up/down index and middle finger
+        if (indexFinger.isExtended() && middleFinger.isExtended() && !thumb.isExtended() && !ringFinger.isExtended() && !pinky.isExtended()) {
+            double currentVolume = volumeSlider.getValue();
 
                 if (controller.frame().fingers().get(1).direction().getY() > 0) {
                     volumeSlider.setValue(currentVolume + controller.frame().fingers().get(1).stabilizedTipPosition().getY() * 0.01);
@@ -154,8 +141,8 @@ public class FXMLDocumentController {
                 } else if (controller.frame().fingers().get(1).direction().getY() < 0) {
                     volumeSlider.setValue(currentVolume - controller.frame().fingers().get(1).stabilizedTipPosition().getY() * 0.01);
                 }
-            }
         }
+
     }
 
 
@@ -190,11 +177,18 @@ public class FXMLDocumentController {
 
     //Play/Pause by tip
     public void play() {
-        if (controller.frame().hands().leftmost().pointables().frontmost().tipPosition().getZ() <= -150) {
-            if (controller.frame().hands().leftmost().palmVelocity().getZ() < -50) {
-                setPlay();
+        int extendedFingers = 0;
+        for (Finger finger : controller.frame().hands().leftmost().fingers()) {
+            if (finger.isExtended()) extendedFingers++;
+        }
+        if (extendedFingers == 1) {
+            if (controller.frame().hands().leftmost().pointables().frontmost().tipPosition().getZ() <= -150) {
+                if (controller.frame().hands().leftmost().palmVelocity().getZ() < -50) {
+                    setPlay();
+                }
             }
         }
+
     }
 
     //Punch the screen to pause

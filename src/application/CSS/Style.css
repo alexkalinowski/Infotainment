@@ -9,16 +9,15 @@
     -fx-text-fill: white;
 
 
-
 }
 
 .button:pressed {
-    -fx-background-color: #E5DDFF;
+    -fx-background-color: #79001f;
     -fx-text-fill: white;
 }
 
 
-.button:disabled{
+.button:disabled {
     -fx-background-color: #DCDCDC;
 }
 
@@ -35,24 +34,36 @@
 
 }
 
-.toggle-button:selected{
+.toggle-button:selected {
     -fx-background-color: #E5DDFF;
 
 }
 
-.slider .track{
+.slider .track {
 
     -fx-background-color: #363636;
     -fx-background-insets: 2;
 
 }
 
-.slider .thumb{
+.toggle-button {
+    -fx-graphic: url("../images/Play.png");
+
+}
+
+.toggle-button:selected {
+    -fx-graphic: url("../images/Pause.png");
+    -fx-background-color: #79001f;
+}
+
+.slider .thumb {
     -fx-background-color: #FF0039;
 }
-.POWER:disabled{
+
+.POWER:disabled {
     -fx-fill: grey;
 }
-.POWER:pressed{
+
+.POWER:pressed {
     -fx-fill: grey;
 }

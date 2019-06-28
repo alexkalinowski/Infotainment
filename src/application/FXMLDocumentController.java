@@ -4,7 +4,9 @@ import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.leapmotion.leap.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 
 public class FXMLDocumentController {
@@ -26,12 +28,17 @@ public class FXMLDocumentController {
     @FXML
     private ImageView coverArt;
     @FXML
+    private Rectangle inactive;
+
 
     private boolean infotainmentStatus = true;
 
     private boolean isSwipingRight = false;
 
     private boolean isSwipingLeft = false;
+
+
+
 
     public int coverIterator = 0;
 
@@ -48,6 +55,8 @@ public class FXMLDocumentController {
         this.nextSongBtn.setDisable(false);
         this.onOffLabel.setText("ON");
         this.infotainmentStatus = true;
+        this.inactive.setVisible(false);
+
     }
 
 
@@ -59,6 +68,7 @@ public class FXMLDocumentController {
         this.prevSongBtn.setDisable(true);
         this.onOffLabel.setText("OFF");
         this.infotainmentStatus = false;
+        this.inactive.setVisible(true);
     }
 
 
@@ -85,12 +95,12 @@ public class FXMLDocumentController {
 
     public void setPlay() {
         this.playBtn.setSelected(true);
-        this.playBtn.setText("Pause");
+
+
     }
 
     public void setPause() {
         this.playBtn.setSelected(false);
-        this.playBtn.setText("Play");
     }
 
 
@@ -136,8 +146,8 @@ public class FXMLDocumentController {
         Finger pinky = allFingers.get(4);
 
 
-        if (indexFinger.isExtended() && middleFinger.isExtended() && !ringFinger.isExtended() && !thumb.isExtended() && !pinky.isExtended()) {
-            System.out.println("flofinger extended");
+        if (controller.frame().fingers().get(1).isExtended() && controller.frame().fingers().get(2).isExtended()){
+            System.out.println("success");
         }
 
 

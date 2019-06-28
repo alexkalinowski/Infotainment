@@ -127,14 +127,17 @@ public class FXMLDocumentController {
 
         //TODO die hier noch mit System.out.print testen
         //TODO Mapping anpassen und relative Lautstärkeregelung
-        //TODO stabilized positions ausprobieren -> besser für 2D Tracking
         //TODO zum Mapping -> analog zu swipeLeft/Right implementieren mit 3 States
         FingerList allFingers = controller.frame().fingers();
-        Finger indexFinger = allFingers.get(0);
-        Finger middleFinger = allFingers.get(1);
+        Finger thumb = allFingers.get(0);
+        Finger indexFinger = allFingers.get(1);
+        Finger middleFinger = allFingers.get(2);
+        Finger ringFinger = allFingers.get(3);
+        Finger pinky = allFingers.get(4);
 
-        if (indexFinger.isExtended() && middleFinger.isExtended()){
-            System.out.println("volumeFingers extended");
+
+        if (indexFinger.isExtended() && middleFinger.isExtended() && !ringFinger.isExtended() && !thumb.isExtended() && !pinky.isExtended()) {
+            System.out.println("flofinger extended");
         }
 
 
@@ -148,10 +151,10 @@ public class FXMLDocumentController {
                 double currentVolume = volumeSlider.getValue();
 
                 if (controller.frame().fingers().get(1).direction().getY() > 0) {
-                    volumeSlider.setValue(currentVolume + controller.frame().fingers().get(1).tipPosition().getY() * 0.01);
+                    volumeSlider.setValue(currentVolume + controller.frame().fingers().get(1).stabilizedTipPosition().getY() * 0.01);
 
                 } else if (controller.frame().fingers().get(1).direction().getY() < 0) {
-                    volumeSlider.setValue(currentVolume - controller.frame().fingers().get(1).tipPosition().getY() * 0.01);
+                    volumeSlider.setValue(currentVolume - controller.frame().fingers().get(1).stabilizedTipPosition().getY() * 0.01);
                 }
             }
         }
@@ -211,7 +214,6 @@ public class FXMLDocumentController {
     }
 
     public void prevSong() {
-
         if (controller.frame().hands().leftmost().palmVelocity().getX() > 80 && controller.frame().hands().leftmost().palmPosition().getX() < -150) {
             isSwipingLeft = true;
         }
@@ -220,7 +222,6 @@ public class FXMLDocumentController {
             isSwipingLeft = false;
             loadPrevSong();
         }
-
     }
 
     public void nextSong() {
@@ -231,7 +232,6 @@ public class FXMLDocumentController {
         if (controller.frame().hands().leftmost().palmVelocity().getX() < 40 && isSwipingRight) {
             isSwipingRight = false;
             loadNextSong();
-
         }
     }
 

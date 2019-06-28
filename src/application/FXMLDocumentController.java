@@ -126,9 +126,16 @@ public class FXMLDocumentController {
     public void setVolume() {
 
         //TODO die hier noch mit System.out.print testen
-        FingerList fingers = controller.frame().hands().leftmost().fingers().fingerType(Finger.Type.TYPE_INDEX);
-        fingers.append(controller.frame().hands().leftmost().fingers().fingerType(Finger.Type.TYPE_MIDDLE);
-        Finger indexFinger = fingers.get(0);
+        //TODO Mapping anpassen und relative Lautstärkeregelung
+        //TODO stabilized positions ausprobieren -> besser für 2D Tracking
+        //TODO zum Mapping -> analog zu swipeLeft/Right implementieren mit 3 States
+        FingerList allFingers = controller.frame().fingers();
+        Finger indexFinger = allFingers.get(0);
+        Finger middleFinger = allFingers.get(1);
+
+        if (indexFinger.isExtended() && middleFinger.isExtended()){
+            System.out.println("volumeFingers extended");
+        }
 
 
 

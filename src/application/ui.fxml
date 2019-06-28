@@ -31,7 +31,7 @@
                 <RowConstraints maxHeight="137.4415283203125" minHeight="10.0" prefHeight="86.73387145996094" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Slider fx:id="volumeSlider" max="300" min="90" orientation="VERTICAL" prefHeight="212.0" prefWidth="106.0" stylesheets="@CSS/Style.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                <Slider fx:id="volumeSlider" max="300" min="100" orientation="VERTICAL" prefHeight="212.0" prefWidth="106.0" stylesheets="@CSS/Style.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
                     <effect>
                         <Glow />
                     </effect></Slider>

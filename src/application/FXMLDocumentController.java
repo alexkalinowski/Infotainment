@@ -14,7 +14,7 @@ public class FXMLDocumentController {
     private Controller controller;
     public Music music = new Music();
 
-
+    //GUI Elements
     @FXML
     private Slider volumeSlider;
     @FXML
@@ -32,14 +32,8 @@ public class FXMLDocumentController {
 
 
     private boolean infotainmentStatus = true;
-
     private boolean isSwipingRight = false;
-
     private boolean isSwipingLeft = false;
-
-
-
-
     public int coverIterator = 0;
 
     public boolean isInfotainmentStatus() {
@@ -95,8 +89,6 @@ public class FXMLDocumentController {
 
     public void setPlay() {
         this.playBtn.setSelected(true);
-
-
     }
 
     public void setPause() {
@@ -119,9 +111,6 @@ public class FXMLDocumentController {
 
     //Method to observe gestures
     public void refresh() {
-        if (controller.frame().hands().get(0).finger(1).isExtended()) {
-            System.out.println("volumefingers detected");
-        }
         pause();
         setVolume();
         powerOn();
@@ -134,7 +123,6 @@ public class FXMLDocumentController {
 
     //Set volume via gesture in y-direction with index finger
     public void setVolume() {
-
         //TODO die hier noch mit System.out.print testen
         //TODO Mapping anpassen und relative Lautstärkeregelung
         //TODO zum Mapping -> analog zu swipeLeft/Right implementieren mit 3 States
@@ -171,7 +159,7 @@ public class FXMLDocumentController {
     }
 
 
-    //Turn on infotainment system 2 hand gesture up or down with fingers extended
+    //Turn on infotainment system 2 hand gesture up or down with all fingers extended
     public void powerOn() {
         int extendedFingers = 0;
         for (Finger finger : controller.frame().fingers()) {
@@ -180,7 +168,7 @@ public class FXMLDocumentController {
         if (controller.frame().hands().count() == 2 && extendedFingers == 10) {
             if (controller.frame().hands().rightmost().palmVelocity().getY() > 100) {
                 setOn();
-                System.out.println("system on");
+                //System.out.println("system on");
             }
         }
     }
@@ -195,7 +183,7 @@ public class FXMLDocumentController {
         if (extendedFingers == 0 && controller.frame().hands().count() == 2) {
             if (controller.frame().hands().rightmost().palmVelocity().getY() > 100) {
                 setOff();
-                System.out.println("system off");
+                //System.out.println("system off");
             }
         }
     }

@@ -109,8 +109,7 @@ public class FXMLDocumentController {
 
     //Method to observe gestures
     public void refresh() {
-        if (controller.frame().hands().get(0).finger(1).isExtended())
-        {
+        if (controller.frame().hands().get(0).finger(1).isExtended()) {
             System.out.println("volumefingers detected");
         }
         pause();
@@ -125,6 +124,14 @@ public class FXMLDocumentController {
 
     //Set volume via gesture in y-direction with index finger
     public void setVolume() {
+
+        //TODO die hier noch mit System.out.print testen
+        FingerList fingers = controller.frame().hands().leftmost().fingers().fingerType(Finger.Type.TYPE_INDEX);
+        fingers.append(controller.frame().hands().leftmost().fingers().fingerType(Finger.Type.TYPE_MIDDLE);
+        Finger indexFinger = fingers.get(0);
+
+
+
         int extendedFingers = 0;
         for (Finger finger : controller.frame().hands().leftmost().fingers()) {
             if (finger.isExtended()) extendedFingers++;
@@ -133,10 +140,10 @@ public class FXMLDocumentController {
             if (extendedFingers == 2) {
                 double currentVolume = volumeSlider.getValue();
 
-                if (controller.frame().fingers().get(1).direction().getY() > 0){
+                if (controller.frame().fingers().get(1).direction().getY() > 0) {
                     volumeSlider.setValue(currentVolume + controller.frame().fingers().get(1).tipPosition().getY() * 0.01);
 
-                } else if (controller.frame().fingers().get(1).direction().getY() < 0){
+                } else if (controller.frame().fingers().get(1).direction().getY() < 0) {
                     volumeSlider.setValue(currentVolume - controller.frame().fingers().get(1).tipPosition().getY() * 0.01);
                 }
             }
@@ -196,7 +203,6 @@ public class FXMLDocumentController {
         }
     }
 
-// TODO Auslösewerte (Velocity etc.) anpassen
     public void prevSong() {
 
         if (controller.frame().hands().leftmost().palmVelocity().getX() > 80 && controller.frame().hands().leftmost().palmPosition().getX() < -150) {
@@ -204,8 +210,8 @@ public class FXMLDocumentController {
         }
 
         if (controller.frame().hands().leftmost().palmVelocity().getX() < 40 && isSwipingLeft) {
-                isSwipingLeft = false;
-                loadPrevSong();
+            isSwipingLeft = false;
+            loadPrevSong();
         }
 
     }

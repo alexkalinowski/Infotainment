@@ -4,7 +4,6 @@ import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.leapmotion.leap.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
@@ -122,9 +121,6 @@ public class FXMLDocumentController {
 
     //Set volume via gesture in y-direction with index finger
     public void setVolume() {
-        //TODO die hier noch mit System.out.print testen
-        //TODO Mapping anpassen und relative Lautstärkeregelung
-        //TODO zum Mapping -> analog zu swipeLeft/Right implementieren mit 3 States
         Finger thumb = controller.frame().hands().leftmost().fingers().get(0);
         Finger indexFinger = controller.frame().hands().leftmost().fingers().get(1);
         Finger middleFinger = controller.frame().hands().leftmost().fingers().get(2);
@@ -135,12 +131,12 @@ public class FXMLDocumentController {
         if (indexFinger.isExtended() && middleFinger.isExtended() && !thumb.isExtended() && !ringFinger.isExtended() && !pinky.isExtended()) {
             double currentVolume = volumeSlider.getValue();
 
-                if (controller.frame().fingers().get(1).direction().getY() > 0) {
-                    volumeSlider.setValue(currentVolume + controller.frame().fingers().get(1).stabilizedTipPosition().getY() * 0.01);
+            if (controller.frame().fingers().get(1).direction().getY() > 0) {
+                volumeSlider.setValue(currentVolume + controller.frame().fingers().get(1).stabilizedTipPosition().getY() * 0.01);
 
-                } else if (controller.frame().fingers().get(1).direction().getY() < 0) {
-                    volumeSlider.setValue(currentVolume - controller.frame().fingers().get(1).stabilizedTipPosition().getY() * 0.01);
-                }
+            } else if (controller.frame().fingers().get(1).direction().getY() < 0) {
+                volumeSlider.setValue(currentVolume - controller.frame().fingers().get(1).stabilizedTipPosition().getY() * 0.01);
+            }
         }
 
     }
@@ -160,7 +156,7 @@ public class FXMLDocumentController {
         }
     }
 
-    //Turn off infotainment system 2 hand gesture up or down with fists
+    //Turn off infotainment system 2 hand gesture up or down with hands formed to fists
     public void powerOff() {
         int extendedFingers = 0;
         for (Finger finger : controller.frame().fingers()) {
